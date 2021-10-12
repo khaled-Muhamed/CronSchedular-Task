@@ -9,7 +9,7 @@ Clients are able to specify:
 * Scheduling frequency
 
 ## Some Technical decisions and reasons :
-* I decides if a user entered multiple jobs with same Id execution stops throw an Exception(RepeatedIdException) and log Exception in log file.
+* I decieded if a user entered multiple jobs with same Id execution stops throw an Exception(RepeatedIdException) and log Exception in log file.
 * I built a cron Job using Builder design patterns as it has multiple parameters like(id,singleInterval,frequencyInterval,function) in order to make it's creation 
 simple and readable.
 * CronJobSchedular is a singleton object to have only one schedular throught whole application.
