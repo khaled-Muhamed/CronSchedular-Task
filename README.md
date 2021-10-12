@@ -35,7 +35,7 @@ java platform installed
  
 ## How to run
  * un the jar file in path (out/artifacts/CronJobScheduler_Challenge_jar/CronJobScheduler-Challenge.jar) using command
- -->java -jar CronJobScheduler-Challenge.jar
+      - java -jar CronJobScheduler-Challenge.jar
  * follow instruction in appear in console
     -->job creation is as follow:
       - jobId singleExpectedInterval SchedulingFrequency jobImplementation 
