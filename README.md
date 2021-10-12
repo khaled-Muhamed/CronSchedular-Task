@@ -1,13 +1,24 @@
 # CronSchedular-Challenge
 ## Project Title [CronJobSchedular-Task]
 
-This is an in-process cron scheduler that accepts a job and executes it periodically.
-Clients are able to specify:
+This is an in-process cron scheduler that accepts a job and executes it periodically and save job excution time in log file.
 
+Clients are able to specify:
 * A unique job identifier.
 * A single run expected interval
 * Scheduling frequency
-* The job implementation
+
+## Some Technical decisions and reasons :
+* I decides if a user entered multiple jobs with same Id execution stops throw an Exception(RepeatedIdException) and log Exception in log file.
+* I built a cron Job using Builder design patterns as it has multiple parameters like(id,singleInterval,frequencyInterval,function) in order to make it's creation 
+simple and readable.
+* CronJobSchedular is a singleton object to have only one schedular throught whole application.
+* Logger is a singleton object in order to have single looger that can log to be thread safe.
+* I created a parser class which is responsible to get user input and parse it to make sure that all is good and valid ones which is a singleton one also.
+## Example
+
+## Possible future improvements.
+* Try to take the function as input in console
 
 ## Getting Started
   * run the jar file and follow the instructions appear in console.
