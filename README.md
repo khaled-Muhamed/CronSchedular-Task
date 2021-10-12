@@ -23,7 +23,9 @@ check Sample Runs/Example1 snippets and log File
 * Try to take the function as input in console
 
 ## Getting Started
-  * run the jar file and follow the instructions appear in console.
+  * run the jar file in path (out/artifacts/CronJobScheduler_Challenge_jar/CronJobScheduler-Challenge.jar) using command
+  *  java -jar CronJobScheduler-Challenge.jar
+  * and follow the instructions appear in console.
   * go and check the log file to see what happened.
 
 ## Prerequisites
