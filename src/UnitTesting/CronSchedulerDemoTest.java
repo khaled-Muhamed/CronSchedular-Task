@@ -82,7 +82,7 @@ class CronSchedulerDemoTest {
     public void createMultipleJobs(){
         //this test is used to create multiple correct jobs
         boolean allIsCreatedAndScheduled = false;
-        for(int i = 1 ;  i <= 10 ;i++ ){
+        for(int i = 10 ;  i <= 20 ;i++ ){
             CronJob tempJob = new CronJob.CronJobBuilder()
                     .setIdentifier(Long.parseLong(""+i))
                     .setSingleExpectedInterval(Long.parseLong(""+i*1000))
