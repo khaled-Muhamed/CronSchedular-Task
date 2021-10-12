@@ -15,7 +15,9 @@ simple and readable.
 * CronJobSchedular is a singleton object to have only one schedular throught whole application.
 * Logger is a singleton object in order to have single looger that can log to be thread safe.
 * I created a parser class which is responsible to get user input and parse it to make sure that all is good and valid ones which is a singleton one also.
+
 ## Example
+check Sample Runs/Example1 snippets and log File
 
 ## Possible future improvements.
 * Try to take the function as input in console
