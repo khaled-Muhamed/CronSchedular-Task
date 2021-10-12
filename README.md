@@ -22,12 +22,6 @@ check Sample Runs/Example1 snippets and log File
 ## Possible future improvements.
 * Try to take the function as input in console
 
-## Getting Started
-  * run the jar file in path (out/artifacts/CronJobScheduler_Challenge_jar/CronJobScheduler-Challenge.jar) using command
-  *  java -jar CronJobScheduler-Challenge.jar
-  * and follow the instructions appear in console.
-  * go and check the log file to see what happened.
-
 ## Prerequisites
 java platform installed
 
@@ -40,10 +34,12 @@ java platform installed
  * src/Parser/Parser: java class which is singleton to get user input parse and validate it.
  
 ## How to run
- * run the jar file
+ * un the jar file in path (out/artifacts/CronJobScheduler_Challenge_jar/CronJobScheduler-Challenge.jar) using command
+ -->java -jar CronJobScheduler-Challenge.jar
  * follow instruction in appear in console
     -->job creation is as follow:
       - jobId singleExpectedInterval SchedulingFrequency jobImplementation 
+ * go check log file
 
 ## References 
  *  https://www.geeksforgeeks.org/java-util-timertask-class-java/
