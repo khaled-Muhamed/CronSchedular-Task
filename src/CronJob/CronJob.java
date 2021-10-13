@@ -1,6 +1,7 @@
 package CronJob;
 
 import Logger.LoggerInstance;
+import org.junit.jupiter.api.function.Executable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ public class CronJob extends TimerTask {
     private Long id;
     private Long SingleExpectedInterval;
     private Long scheduleFrequency;
-    private Function<Long , String> myfunction;
+    private Executable myFunction;
     private Long numberOfRuns;
 
 
@@ -22,7 +23,7 @@ public class CronJob extends TimerTask {
         this.id = builder.id;
         this.SingleExpectedInterval = builder.SingleExpectedInterval;
         this.scheduleFrequency = builder.scheduleFrequency;
-        this.myfunction = builder.myfunction;
+        this.myFunction = builder.myfunction;
         this.numberOfRuns = Long.valueOf(0);
     }
 
@@ -37,34 +38,33 @@ public class CronJob extends TimerTask {
         //get the time of execution
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:ms");
         Date date = new Date();
-
         temp.append("Executing at  " +formatter.format(date)+"  ");
-//        System.out.println(temp.toString());
-        //going to log
- //      log(temp.toString());
-        DynamicFunction(temp,this.myfunction);
+        try {
+            DynamicFunction(temp,this.myFunction);
+            log(null , temp.toString() + " Success" );
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            log(throwable, temp.toString());
+        }
+
     }
 
     //this function will be dynamic as it needs the client to pass his own function
-    //input must be integer and output will be String
-    public void DynamicFunction(StringBuilder temp,Function<Long , String> function) {
-        String result = function.apply(this.id);
-//        log(result);
-        temp.append(result);
-        log(temp.toString());
-//        System.out.println(result);
+    public void DynamicFunction(StringBuilder temp,Executable function) throws Throwable {
+        function.execute();
     }
 
     public static class CronJobBuilder{
         private Long id;
         private Long SingleExpectedInterval;
         private Long scheduleFrequency;
-        private Function<Long , String> myfunction;
+        private Executable myfunction;
 
         public  CronJobBuilder setIdentifier(long identifier){
             this.id = identifier;
             return this;
         }
+
         public  CronJobBuilder setSingleExpectedInterval(long SingleExpectedInterval){
             this.SingleExpectedInterval = SingleExpectedInterval;
             return this;
@@ -73,7 +73,7 @@ public class CronJob extends TimerTask {
             this.scheduleFrequency = scheduleFrequency;
             return this;
         }
-        public  CronJobBuilder setmyfunction(Function<Long , String> function){
+        public  CronJobBuilder setmyfunction(Executable function){
             this.myfunction = function;
             return this;
         }
@@ -90,10 +90,10 @@ public class CronJob extends TimerTask {
         this.scheduleFrequency = scheduleFrequency;
     }
 
-    public void setMyfunction(Function<Long, String> myfunction) {
-        this.myfunction = myfunction;
-    }
 
+    public void setMyfunction(Executable myfunction) {
+        this.myFunction = myfunction;
+    }
     public Long getId() {
         return id;
     }
@@ -106,9 +106,14 @@ public class CronJob extends TimerTask {
         return scheduleFrequency;
     }
 
-    private void log(String message){
+    private void log(Throwable e,String message){
         LoggerInstance loggerInstance = LoggerInstance.getTheInstance();
-        loggerInstance.logMessage(message);
-
+        if(e == null){
+            //we are logging success state
+            loggerInstance.logMessage(message);
+        }else{
+            //we are logging an exception
+            loggerInstance.logException(message,(Exception) e);
+        }
     }
 }

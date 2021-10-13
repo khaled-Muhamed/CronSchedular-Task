@@ -1,6 +1,8 @@
 package JobSchedular;
 
+import Exception.RepeateIdException;
 import CronJob.CronJob;
+import Logger.LoggerInstance;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -30,9 +32,10 @@ public class CronJobScheduler extends Timer {
         if(myInstance == null)
             throw new RuntimeException("You need to create Job Scheduler first");
         //check if we have a previous job with same identifier
-//        if( idAlreadyExist(task.getId()) ){
-//            throw new RuntimeException("we have a job already with same Identifier ,Use another Identifier");
-//        }
+        if( idAlreadyExist(task.getId()) ){
+            LoggerInstance.getTheInstance().logException("Repeated job Id",new RepeateIdException("Repeated job Id"));
+            throw new RuntimeException("we have a job already with same Identifier ,Use another Identifier");
+        }
 
         jobsQueue.addLast(task);
         jobIds.add(task.getId());

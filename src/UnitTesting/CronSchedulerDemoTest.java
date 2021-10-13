@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,14 +19,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class CronSchedulerDemoTest {
     CronJobScheduler myTimer;
     Parser inputParser;
-    Function<Long, String> myFunc;
+    Executable myFunc;
 
     @org.junit.jupiter.api.BeforeAll
     void setUp() {
         myTimer = CronJobScheduler.getInstance();
         inputParser = Parser.getInstance();
 
-        myFunc = CronSchedulerDemo::myFunc;
+        myFunc = ()->{System.out.println("Hello World");};
     }
 
     @Test
@@ -58,7 +57,13 @@ class CronSchedulerDemoTest {
     @ValueSource(strings = {"khaled","_Zero","?"})
     public void InvalidId(String Id) throws RepeateIdException{
         //In this test I am using different invalid values for Id
-        Assertions.assertFalse(inputParser.validateJobId(Id));
+
+        Assertions.assertThrows(NumberFormatException.class,()->{new CronJob.CronJobBuilder()
+                .setIdentifier(Long.parseLong(Id))
+                .setSingleExpectedInterval(Long.parseLong("2000"))
+                .setscheduleFrequency(Long.parseLong("1000"))
+                .setmyfunction(myFunc)
+                .build();});
     }
 
     @DisplayName("Invalid Single Expected Interval Values")
@@ -66,7 +71,12 @@ class CronSchedulerDemoTest {
     @ValueSource(strings = {"khaled","_Zero","?"})
     public void InvalidSingleInterval(String singleInterval) {
         //In this test I am using different invalid values for Id
-        Assertions.assertFalse(inputParser.validateSingleExpectedInterval(singleInterval));
+        Assertions.assertThrows(NumberFormatException.class,()->{new CronJob.CronJobBuilder()
+                .setIdentifier(Long.parseLong("1"))
+                .setSingleExpectedInterval(Long.parseLong(singleInterval))
+                .setscheduleFrequency(Long.parseLong("1000"))
+                .setmyfunction(myFunc)
+                .build();});
     }
 
     @DisplayName("Invalid Frequency Interval Values")
@@ -74,7 +84,12 @@ class CronSchedulerDemoTest {
     @ValueSource(strings = {"khaled","_Zero","?"})
     public void InvalidFrequencyInterval(String scheduleFrequency){
         //In this test I am using different invalid values for Id
-        Assertions.assertFalse(inputParser.validateSchedulingFrequency(scheduleFrequency));
+        Assertions.assertThrows(NumberFormatException.class,()->{new CronJob.CronJobBuilder()
+                .setIdentifier(Long.parseLong("1"))
+                .setSingleExpectedInterval(Long.parseLong("2000"))
+                .setscheduleFrequency(Long.parseLong(scheduleFrequency))
+                .setmyfunction(myFunc)
+                .build();});
     }
 
     @DisplayName("Create multiple correct jobs and check if all is true")
@@ -92,8 +107,5 @@ class CronSchedulerDemoTest {
             allIsCreatedAndScheduled = myTimer.enqueueAndScheduleJob(tempJob,tempJob.getSingleExpectedInterval(),tempJob.getScheduleFrequency());
         }
         Assertions.assertTrue(allIsCreatedAndScheduled);
-    }
-    @org.junit.jupiter.api.AfterEach
-    void tearDown() {
     }
 }
