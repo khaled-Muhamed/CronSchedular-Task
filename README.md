@@ -5,8 +5,9 @@ This is an in-process cron scheduler that accepts a job and executes it periodic
 
 Clients are able to specify:
 * A unique job identifier.
-* A single run expected interval
-* Scheduling frequency
+* A single run expected interval.
+* Scheduling frequency.
+* Job implementaion(function).
 
 ## Some Technical decisions and reasons :
 * I decieded if a user entered multiple jobs with same Id execution stops throw an Exception(RepeatedIdException) and log Exception in log file.
