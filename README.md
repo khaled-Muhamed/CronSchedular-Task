@@ -17,6 +17,7 @@ Clients are able to specify:
 
 * I decided that logger to be single object:
   - reason: to allow only one job use the instance at a time (seems to be synchronous) to be thread safe.
+  
 
 * I decieded if a user entered multiple jobs with same Id execution stops throw an Exception(RepeatedIdException) and log Exception in log file
   - reason: each job has multiple attributes (e.g jobID, SingleExpectedInterval, scheduleFrequency and function)
