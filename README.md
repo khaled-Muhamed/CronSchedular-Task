@@ -11,7 +11,8 @@ Clients are able to specify:
 
 ## Technical Decisions:
 * I used Builder design pattern to build a job:
-  - reason: each job has multiple attributes (e.g jobID, SingleExpectedInterval, scheduleFrequency and function) to make it's creation simple and readable
+  - reason: each job has multiple attributes (e.g jobID, SingleExpectedInterval, scheduleFrequency and function) to make it's creation simple and readable.
+  
 *  I decided that schedular is a single object through the whole program so it is a singleton one:
   - reason: in order not to have multiple schedulars and lose control
   
