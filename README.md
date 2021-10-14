@@ -13,8 +13,7 @@ Clients are able to specify:
 * I used Builder design pattern to build a job:
   - reason: each job has multiple attributes (e.g jobID, SingleExpectedInterval, scheduleFrequency and function) to make it's creation simple and readable.
   
-*  I decided that schedular is a single object through the whole program so it is a singleton one:
-  - reason: in order not to have multiple schedulars and lose control
+*  I decided that schedular is a single object through the whole program so it is a singleton one in order not to have multiple schedulars and lose control
   
 * I decided that logger to be single object:
   - reason: to allow only one job use the instance at a time (seems to be synchronous) to be thread safe.
